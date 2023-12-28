@@ -29,8 +29,10 @@ app.use('/uploads',express.static(__dirname +'/uploads'));
 // Use a single promise-based method for renaming files
 const renameAsync = promisify(fs.rename);
 
+const mongo_url = process.env.MONGO_URL;
 // const mongo_url = process.env.MONGO_URL;
-const mongo_url = "mongodb+srv://myblog1:myblog1234@cluster0.6fty7cj.mongodb.net/mydatabase?retryWrites=true&w=majority"
+// console.log("mongoose url is "+mongo_url);
+// const mongo_url = "mongodb+srv://myblog1:myblog1234@cluster0.6fty7cj.mongodb.net/mydatabase?retryWrites=true&w=majority"
 mongoose
   .connect(mongo_url, {
     useNewUrlParser: true,
