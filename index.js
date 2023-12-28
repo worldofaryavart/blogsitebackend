@@ -13,15 +13,15 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const { promisify } = require('util');
-
 dotenv.config();
+const base_url = process.env.BASE_URL;
 
 const uploadMiddleware = multer({dest: 'uploads/'});
 
 const saltRounds = 10;
 const secret = crypto.randomBytes(32).toString('hex');
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: base_url }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname +'/uploads'));
@@ -30,9 +30,6 @@ app.use('/uploads',express.static(__dirname +'/uploads'));
 const renameAsync = promisify(fs.rename);
 
 const mongo_url = process.env.MONGO_URL;
-// const mongo_url = process.env.MONGO_URL;
-// console.log("mongoose url is "+mongo_url);
-// const mongo_url = "mongodb+srv://myblog1:myblog1234@cluster0.6fty7cj.mongodb.net/mydatabase?retryWrites=true&w=majority"
 mongoose
   .connect(mongo_url, {
     useNewUrlParser: true,
